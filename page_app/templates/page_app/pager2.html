@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>page2</title>
+</head>
+<body>
+
+    {% for book in books %}
+        {{ book }}<br>
+    {% endfor %}
+
+    <br>
+
+
+    <!-- 分页二 -->
+    {% if books.has_previous %}
+        <a href="?page={{ books.previous_page_number }}">上一页</a>
+    {% endif %}
+
+    <span class="current">
+        {% for page in books.paginator.page_num_range %}
+            {% if page == books.number %}
+                <a style="color: red" href="?page={{ page }}">{{ page }}</a>
+            {% else %}
+                <a href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </span>
+
+    {% if books.has_next %}
+        <a href="?page={{ books.next_page_number }}">下一页</a>
+    {% endif %}
+
+
+</body>
+</html>
