@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 </head>
 <body>
+    <form action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="word">
+        <input type="submit" value="提交">
+    </form>
+
     <ul>
         {% for book in books %}
             <li>{{ book }}</li>

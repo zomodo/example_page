@@ -97,3 +97,25 @@ def pager3(request):
 
     context={'books':books,'page_obj':page_obj}
     return render(request, 'page_app/pager3.html',context)
+
+# 自定义分页组件添加搜索结果分页功能
+def search(request):
+    from page_app.MyPaginator import Pagination
+
+    if request.method=='POST':
+        word=request.POST.get('word')
+    else:
+        word=request.GET.get('search')      # 翻页用GET取search字段
+
+    book_list = Books.objects.filter(name__contains=word)
+    if book_list:
+        book_count = book_list.count()
+        current_page = request.GET.get('page','1')
+
+        page_obj = Pagination(book_count,current_page,search_word=word)
+        books = book_list[page_obj.start:page_obj.end]        # 切片
+
+        context={'books':books,'page_obj':page_obj}
+        return render(request, 'page_app/pager3.html',context)
+    else:
+        return render(request,'page_app/pager3.html')

@@ -23,4 +23,5 @@ urlpatterns = [
     path('pager1/',views.pager1,name='pager1'),
     path('pager2/',views.pager2,name='pager2'),
     path('pager3/',views.pager3,name='pager3'),
+    path('search/',views.search,name='search'),
 ]
